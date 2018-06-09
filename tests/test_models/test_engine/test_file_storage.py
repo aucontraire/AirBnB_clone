@@ -27,6 +27,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(key in storage_dict.keys())
 
     def test_file_storage_save_method(self):
+        """test that FileStorage save method updates __objects"""
         base = BaseModel()
         key = '{}.{}'.format(type(base).__name__, base.id)
         base_updated_0 = base.updated_at
