@@ -59,7 +59,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(base.created_at, datetime.datetime)
         self.assertIsInstance(base.updated_at, datetime.datetime)
 
-    def test_base_model_dict_to_instance(self):
+    def test_base_model_dict_to_instance_with_kwargs(self):
         """test that BaseModel can instantiate new object with dictionary"""
         base = BaseModel()
         base.name = "Betty"
@@ -69,6 +69,16 @@ class TestBaseModel(unittest.TestCase):
         new_base_dict = new_base.to_dict()
         self.assertFalse(new_base is base)
         self.assertDictEqual(new_base_dict, base_dict)
+
+    def test_base_model_dict_to_instance_with_empty_kwargs(self):
+        """test that BaseModel can instantiate new object with empty dict"""
+        base_dict = {}
+        new_base = BaseModel(**base_dict)
+        new_base_dict = new_base.to_dict()
+        self.assertIsInstance(new_base, BaseModel)
+        self.assertIsNotNone(new_base.id)
+        self.assertIsNotNone(new_base.created_at)
+        self.assertIsNotNone(new_base.updated_at)
 
 if __name__ == '__main__':
     unittest.main()
