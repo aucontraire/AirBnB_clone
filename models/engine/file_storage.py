@@ -5,38 +5,48 @@ from models.base_model import BaseModel
 
 
 class FileStorage:
-    """class FileStorage"""
+    """class FileStorage
 
+    Attributes:
+        __filepath (str): file path to JSON file
+        __objects (dict): dictionary of objects
+    """
     __file_path = 'file.json'
     __objects = {}
 
     def all(self):
-        """"""
+        """all method returns dictionary of objects
+        Returns:
+            __objects - dictionary of objects
+        """
         return self.__objects
 
     def new(self, obj):
-        """"""
+        """new method which adds object to __objects dict
+        Args:
+            obj (object): object to add to dictionary
+        """
         if obj:
             key = '{}.{}'.format(type(obj).__name__, obj.id)
             self.__objects[key] = obj
 
     def save(self):
-        """"""
+        """save method serializes __objects to JSON file at __filepath"""
         obj_dict = {}
         for key, obj in self.__objects.items():
             obj_dict[key] = obj.to_dict()
 
         json_str = json.dumps(obj_dict)
-        #print('json_str:', json_str) #delete
+
         with open(self.__file_path, 'w', encoding='utf-8') as f:
             f.write(json_str)
 
     def reload(self):
-        """"""
+        """reload method deserializes the JSON file to __objects"""
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 json_dict = json.load(f)
-                for key, obj_dict in json_dict.items():
+                for obj_dict in json_dict.values():
                     self.new(BaseModel(**obj_dict))
         except FileNotFoundError:
             pass
