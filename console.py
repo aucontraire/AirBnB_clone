@@ -111,7 +111,6 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     setattr(obj, args[2], eval(args[3]))
                     obj.save()
-                    models.storage.save()
             except KeyError:
                 print("** no instance found **")
 
