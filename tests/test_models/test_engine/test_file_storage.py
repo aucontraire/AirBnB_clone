@@ -11,7 +11,7 @@ class TestFileStorage(unittest.TestCase):
     """class TestFileStorage """
 
     def test_file_storage_all_method(self):
-        """test that FileStorage all method contains dict of BaseModel objs"""
+        """FileStorage all method contains dict of BaseModel objs"""
         storage = FileStorage()
         storage_dict = storage.all()
         self.assertIsInstance(storage_dict, dict)
@@ -19,7 +19,7 @@ class TestFileStorage(unittest.TestCase):
             self.assertIsInstance(obj, BaseModel)
 
     def test_file_storage_new_method(self):
-        """test that FileStorage new method adds object"""
+        """FileStorage new method adds object"""
         base = BaseModel()
         storage = FileStorage()
         storage_dict = storage.all()
@@ -27,7 +27,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(key in storage_dict.keys())
 
     def test_file_storage_save_method(self):
-        """test that FileStorage save method updates __objects"""
+        """FileStorage save method updates __objects"""
         base = BaseModel()
         key = '{}.{}'.format(type(base).__name__, base.id)
         base_updated_0 = base.updated_at
@@ -35,7 +35,7 @@ class TestFileStorage(unittest.TestCase):
         objs_0 = storage.all()
         dt_0 = objs_0[key].updated_at
 
-        time.sleep(0.5)
+        time.sleep(0.0001)
         base.save()
 
         base_updated_1 = base.updated_at
