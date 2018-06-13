@@ -16,9 +16,13 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """class HBNBCommand"""
 
-    prompt = '(hbnb) '
+    prompt = '(hbnb) \n'
     classes = [
         'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
+
+    def do_prompt(self, line):
+        "Change the interactive prompt"
+        self.prompt = '(hbnb) '
 
     def emptyline(self):
         """Overrides default empty line behavior so no command is executed"""
