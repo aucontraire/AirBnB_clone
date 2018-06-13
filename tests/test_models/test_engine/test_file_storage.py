@@ -30,9 +30,9 @@ class TestFileStorage(unittest.TestCase):
         """FileStorage save method updates __objects
 
         Test if file already exists.
-            with self.assertRaises(FileNotFoundError):
-                open('file.json', 'r')
         """
+        with self.assertRaises(FileNotFoundError):
+            open('file.json', 'r')
         base = BaseModel()
         key = '{}.{}'.format(type(base).__name__, base.id)
         base_updated_0 = base.updated_at
