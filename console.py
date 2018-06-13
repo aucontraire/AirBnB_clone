@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Console module """
 import sys
+import shlex
 import cmd
 import models
 from models.base_model import BaseModel
@@ -117,20 +118,15 @@ class HBNBCommand(cmd.Cmd):
                 elif len(args) == 3:
                     print("** value missing **")
                 else:
-                    setattr(obj, args[2], eval(args[3]))
+                    setattr(obj, args[2], args[3])
                     obj.save()
             except KeyError:
                 print("** no instance found **")
 
-    def do_hi(self, line):
-        """Responds in kind"""
-        print("Hey, bud")
-
 
 def parse(line):
     """Parses a given string, and puts it in a tuple"""
-    return tuple(line.split())
-
+    return tuple(shlex.split(line))
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
