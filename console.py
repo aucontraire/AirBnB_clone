@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     try:
                         eval(args[3])
-                    except SyntaxError or NameError:
+                    except (SyntaxError, NameError):
                         args[3] = "'{}'".format(args[3])
                     setattr(obj, args[2], eval(args[3]))
                     obj.save()
