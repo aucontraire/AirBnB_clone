@@ -16,13 +16,9 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """class HBNBCommand"""
 
-    prompt = '(hbnb) \n'
+    prompt = '(hbnb) '
     classes = [
         'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
-
-    def do_prompt(self, line):
-        "Change the interactive prompt"
-        self.prompt = '(hbnb) '
 
     def emptyline(self):
         """Overrides default empty line behavior so no command is executed"""
@@ -34,6 +30,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """EOF command to exit the program"""
+        print()
         return True
 
     def do_create(self, line):
