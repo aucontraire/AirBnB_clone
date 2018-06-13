@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Console module """
+"""HBNBCommand module"""
 import sys
 import shlex
 import cmd
