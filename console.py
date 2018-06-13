@@ -16,6 +16,7 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """class HBNBCommand"""
 
+    prompt = '(hbnb) '
     classes = [
         'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 
@@ -136,9 +137,7 @@ def parse(line):
     return shlex.split(line)
 
 if __name__ == '__main__':
-    hbnb = HBNBCommand()
-    hbnb.prompt = '(hbnb) '
     if len(sys.argv) > 1:
-        hbnb.onecmd(' '.join(sys.argv[1:]))
+        HBNBCommand().onecmd(' '.join(sys.argv[1:]))
     else:
-        hbnb.cmdloop()
+        HBNBCommand().cmdloop()
