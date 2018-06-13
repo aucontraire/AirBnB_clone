@@ -137,8 +137,8 @@ def parse(line):
 
 if __name__ == '__main__':
     hbnb = HBNBCommand()
-    hbnb.prompt('(hbnb) ')
+    hbnb.prompt = '(hbnb) '
     if len(sys.argv) > 1:
-        HBNBCommand().onecmd(' '.join(sys.argv[1:]))
+        hbnb.onecmd(' '.join(sys.argv[1:]))
     else:
-        HBNBCommand().cmdloop()
+        hbnb.cmdloop()
