@@ -8,6 +8,7 @@ import time
 
 class TestUser(unittest.TestCase):
     """class TestUser"""
+
     def test_user_class_membership_and_attributes(self):
         """User is right class with correct attrs"""
         user = User()

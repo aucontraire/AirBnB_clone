@@ -8,6 +8,7 @@ import time
 
 class TestBaseModel(unittest.TestCase):
     """class TestBaseModel"""
+
     def test_base_model_class_membership_and_attributes(self):
         """BaseModel is right class with correct attrs"""
         base = BaseModel()
