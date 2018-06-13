@@ -5,11 +5,19 @@ import cmd
 import models
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb) '
-    classes = ['BaseModel', 'User']
+    """class HBNBCommand"""
+
+    prompt = '\033[91m(hbnb)\033[0m '
+    classes = [
+        'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 
     def emptyline(self):
         """Overrides default empty line behavior so no command is executed"""
@@ -114,8 +122,13 @@ class HBNBCommand(cmd.Cmd):
             except KeyError:
                 print("** no instance found **")
 
+    def do_hi(self, line):
+        """Responds in kind"""
+        print("Hey, bud")
+
 
 def parse(line):
+    """Parses a given string, and puts it in a tuple"""
     return tuple(line.split())
 
 
