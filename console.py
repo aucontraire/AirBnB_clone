@@ -16,7 +16,7 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """class HBNBCommand"""
 
-    prompt = '\033[91m(hbnb)\033[0m '
+    prompt = '(hbnb) '
     classes = [
         'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 
@@ -118,7 +118,11 @@ class HBNBCommand(cmd.Cmd):
                 elif len(args) == 3:
                     print("** value missing **")
                 else:
-                    setattr(obj, args[2], args[3])
+                    try:
+                        eval(args[3])
+                    except SyntaxError or NameError:
+                        args[3] = "'{}'".format(args[3])
+                    setattr(obj, args[2], eval(args[3]))
                     obj.save()
             except KeyError:
                 print("** no instance found **")
@@ -126,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
 
 def parse(line):
     """Parses a given string, and puts it in a tuple"""
-    return tuple(shlex.split(line))
+    return shlex.split(line)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
