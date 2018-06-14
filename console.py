@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         """Implement custom commands"""
 
-        if line == '':
+        if line == '' or not line.endswith(')'):
             return line
 
         tmp = ''
