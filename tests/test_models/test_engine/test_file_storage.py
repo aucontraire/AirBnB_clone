@@ -3,6 +3,7 @@
 import unittest
 import datetime
 import time
+from os import remove
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
@@ -27,7 +28,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(key in storage_dict.keys())
 
     def test_file_storage_save_method(self):
-        """FileStorage save method updates __objects"""
+        """FileStorage save method updates __objects
+
+        Test if file already exists.
+        with self.assertRaises(FileNotFoundError):
+            open('file.json', 'r')
+        """
         base = BaseModel()
         key = '{}.{}'.format(type(base).__name__, base.id)
         base_updated_0 = base.updated_at
@@ -44,6 +50,12 @@ class TestFileStorage(unittest.TestCase):
 
         self.assertNotEqual(base_updated_1, base_updated_0)
         self.assertNotEqual(dt_1, dt_0)
+
+        try:
+            with open('file.json', 'r'):
+                remove('file.json')
+        except FileNotFoundError:
+            self.assertEqual(1, 2)
 
 if __name__ == '__main__':
     unittest.main()
