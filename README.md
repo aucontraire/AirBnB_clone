@@ -42,9 +42,17 @@ You can also use a file that contains the commands you want to run:
 
 Instances of classes are saved in a [JSON](https://www.json.org) string representation to the __file.json__ file at the root directory. Any modifications (additions, deletions, updates) to the objects are saved automatically to the file. The JSON file serves as a simple database that helps the data persist across sessions. 
 
-
 ### Tests
-Testing is imperative to building any robust program.
+
+Testing is imperative to building any robust program therefore we have included a comprehensive testing suite using the Python [unittest module](https://docs.python.org/3.4/library/unittest.html)
+
+To run the entire unittest suite in one go run the following command from the root directory:
+
+```$ python3 -m unittest discover tests```
+
+If you wish to run tests individually, a sample command would be:
+
+```$ python3 -m unittest tests/test_models/test_base_model.py```
 
 ### Models
 Base_Model
