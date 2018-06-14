@@ -1,9 +1,11 @@
 # AirBnB Clone
 
 ## Description
-This is the first of several lite clones of the AirBnB (online platform for rental accommodations) website. It specifies classes for __User__, __Place__, __State__, __City__, __Amenity__, and __Review__ that inherit from the __BaseModel__ class. Instances are serialized and saved to a JSON file then reloaded and deserialized back into instances. Additionally, there is a simple command line interface (CLI) or 'console' that abstracts the process used to create these instances.
+
+This is the first of several lite clones of the [AirBnB](https://www.airbnb.com) (online platform for rental accommodations) website. It specifies classes for __User__, __Place__, __State__, __City__, __Amenity__, and __Review__ that inherit from the __BaseModel__ class. Instances are serialized and saved to a JSON file then reloaded and deserialized back into instances. Additionally, there is a simple command line interface (CLI) or 'console' that abstracts the process used to create these instances.
 
 ## Usage
+
 The console can run in two modes: *interactive* and *non-interactive*:
 
 ### Interactive mode
@@ -35,6 +37,11 @@ will produce the same results as above:
 You can also use a file that contains the commands you want to run:
 
 ```$ cat commands.txt | ./console.py```
+
+### Storage
+
+Instances of classes are saved in a [JSON](https://www.json.org) string representation to the __file.json__ file at the root directory. Any modifications (additions, deletions, updates) to the objects are saved automatically to the file. The JSON file serves as a simple database that helps the data persist across sessions. 
+
 
 ### Tests
 Testing is imperative to building any robust program.
