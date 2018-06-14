@@ -116,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
         args = parse(line)
         objs = models.storage.all()
         obj_list = []
-        if len(args) == 1:
+        if len(args) >= 1:
             if args[0] not in self.classes:
                 print("** class doesn't exist **")
             else:
