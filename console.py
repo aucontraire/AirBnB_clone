@@ -20,6 +20,13 @@ class HBNBCommand(cmd.Cmd):
     classes = [
         'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 
+    def precmd(self, line):
+        """Implement custom commands"""
+        cmd_line = line.split('.')
+        if cmd_line[0] in self.classes:
+            return "all {}".format(cmd_line[0])
+        return line
+
     def emptyline(self):
         """Overrides default empty line behavior so no command is executed"""
         pass
