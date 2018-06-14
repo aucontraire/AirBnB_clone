@@ -17,15 +17,48 @@ class HBNBCommand(cmd.Cmd):
     """class HBNBCommand"""
 
     prompt = '(hbnb) '
+    methods = ['all', 'show', 'count', 'update', 'destroy']
     classes = [
         'BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 
     def precmd(self, line):
         """Implement custom commands"""
-        cmd_line = line.split('.')
-        if cmd_line[0] in self.classes:
-            return "all {}".format(cmd_line[0])
-        return line
+
+        if line == '':
+            return line
+
+        tmp = ''
+        for x in self.methods:
+            tmp = line.replace('(', '.').replace(')', '.').split('.')
+            while tmp[-1] == '':
+                tmp.pop()
+            if len(tmp) < 2:
+                return line
+            if len(tmp) == 2:
+                tmp = '{} {}'.format(tmp[1], tmp[0])
+            else:
+                tmp = '{} {} {}'.format(tmp[1], tmp[0], tmp[2])
+            if tmp.startswith(x):
+                break
+
+        if line.endswith('.all()'):
+            objs = models.storage.all()
+            obj_list = []
+            args = tmp
+            if len(args) == 1:
+                if args[0] not in self.classes:
+                    print("** class doesn't exist **")
+                else:
+                    for key, obj in objs.items():
+                        if key.startswith(args[0]):
+                            obj_list.append(obj.__str__())
+            else:
+                for obj in objs.values():
+                    obj_list.append(obj.__str__())
+            print('[{}]'.format(' '.join(obj_list)))
+        else:
+            return tmp
+        return ''
 
     def emptyline(self):
         """Overrides default empty line behavior so no command is executed"""
@@ -97,16 +130,20 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances based on class"""
         args = parse(line)
         objs = models.storage.all()
+        obj_list = []
         if len(args) == 1:
             if args[0] not in self.classes:
                 print("** class doesn't exist **")
             else:
                 for key, obj in objs.items():
                     if key.startswith(args[0]):
-                        print(obj)
+                        obj_list.append(obj.__str__())
         else:
             for obj in objs.values():
-                print(obj)
+                obj_list.append(obj.__str__())
+        if line.endswith('.all()'):
+            print('[{}]'.format(' '.join(obj_list)))
+        print(obj_list)
 
     def do_update(self, line):
         """Updates an instance based on the class name and id and attr name"""
