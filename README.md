@@ -4,6 +4,9 @@
 
 This is the first of several lite clones of the [AirBnB](https://www.airbnb.com) (online platform for rental accommodations) website. It specifies classes for __User__, __Place__, __State__, __City__, __Amenity__, and __Review__ that inherit from the __BaseModel__ class. Instances are serialized and saved to a JSON file then reloaded and deserialized back into instances. Additionally, there is a simple command line interface (CLI) or 'console' that abstracts the process used to create these instances.
 
+## Requirements
+Python 3.4.3 or later
+
 ## Usage
 
 The console can run in two modes: *interactive* and *non-interactive*:
@@ -54,15 +57,16 @@ If you wish to run tests individually, a sample command would be:
 
 ```$ python3 -m unittest tests/test_models/test_base_model.py```
 
-### Models
-Base_Model
-Engine
+### Supported Commands
 
+Name | Description | Use
+-------- | ----------- |-------- |
+help | Displays help information for a command | help [command]
+quit | Exits/quits the program | quit
+EOF | Exits the program when files are passed into the program | N/A
+create | Creates a new instance of a specified class | create [class_name]
+show | Prints the string representation of an instance | show [class_name] [id]
+destroy | Deletes an instance | destroy [class_name] [id]
+all | Prints the string representation of all instances of a class| all or all [class_name] [id]
+update | Adds or modifies attributes of an instance | update [class_name] [id] [attribute] [value]
 
-
-
-
-
-
-
-#### A Holberton School project
