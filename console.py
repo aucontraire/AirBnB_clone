@@ -30,6 +30,8 @@ class HBNBCommand(cmd.Cmd):
         tmp = ''
         for x in self.methods:
             tmp = line.replace('(', '.').replace(')', '.').split('.')
+            if tmp[0] not in self.classes:
+                return ' '.join(tmp)
             while tmp[-1] == '':
                 tmp.pop()
             if len(tmp) < 2:
@@ -39,25 +41,8 @@ class HBNBCommand(cmd.Cmd):
             else:
                 tmp = '{} {} {}'.format(tmp[1], tmp[0], tmp[2])
             if tmp.startswith(x):
-                break
+                return tmp
 
-        if line.endswith('.all()'):
-            objs = models.storage.all()
-            obj_list = []
-            args = tmp
-            if len(args) == 1:
-                if args[0] not in self.classes:
-                    print("** class doesn't exist **")
-                else:
-                    for key, obj in objs.items():
-                        if key.startswith(args[0]):
-                            obj_list.append(obj.__str__())
-            else:
-                for obj in objs.values():
-                    obj_list.append(obj.__str__())
-            print('[{}]'.format(' '.join(obj_list)))
-        else:
-            return tmp
         return ''
 
     def emptyline(self):
@@ -141,8 +126,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             for obj in objs.values():
                 obj_list.append(obj.__str__())
-        if line.endswith('.all()'):
-            print('[{}]'.format(' '.join(obj_list)))
         print(obj_list)
 
     def do_update(self, line):
