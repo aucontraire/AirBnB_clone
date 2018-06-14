@@ -24,6 +24,17 @@ where you can type commands and get output. For example:
 
 ### Non-interactive mode
 
+The same commands can be used to run non-interactive mode with some modifications:
+
+```$ echo "all" | ./console.py ```
+
+will produce the same results as above:
+
+```[[User] (0a7adbf6-ea6f-4447-9e7e-c160687632e7) {'id': '0a7adbf6-ea6f-4447-9e7e-c160687632e7', 'updated_at': datetime.datetime(2018, 6, 13, 23, 38, 38, 231906), 'created_at': datetime.datetime(2018, 6, 13, 23, 38, 38, 231906)}]```
+
+You can also use a file that contains the commands you want to run:
+
+```$ cat commands.txt | ./console.py```
 
 ### Tests
 Testing is imperative to building any robust program.
