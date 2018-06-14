@@ -27,6 +27,15 @@ class HBNBCommand(cmd.Cmd):
         if line == '' or not line.endswith(')'):
             return line
 
+        flag = 1
+
+        for x in self.classes:
+            for y in self.methods:
+                if line.startswith("{}.{}(".format(x, y)):
+                    flag = 0
+        if flag:
+            return line
+
         tmp = ''
         for x in self.methods:
             tmp = line.replace('(', '.').replace(')', '.').split('.')
@@ -123,10 +132,11 @@ class HBNBCommand(cmd.Cmd):
                 for key, obj in objs.items():
                     if key.startswith(args[0]):
                         obj_list.append(obj.__str__())
+                print(obj_list)
         else:
             for obj in objs.values():
                 obj_list.append(obj.__str__())
-        print(obj_list)
+            print(obj_list)
 
     def do_update(self, line):
         """Updates an instance based on the class name and id and attr name"""
