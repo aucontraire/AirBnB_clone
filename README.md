@@ -71,7 +71,7 @@ If you want to run tests individually, an example would be:
 
 ```bash
 $ python3 -m unittest tests/test_models/test_base_model.py
-............................................................
+.....
 ----------------------------------------------------------------------
 Ran 5 tests in 0.003s
 
