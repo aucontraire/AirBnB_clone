@@ -2,6 +2,7 @@
 """HBNBCommand module"""
 import sys
 import shlex
+import re
 import cmd
 import models
 from models.base_model import BaseModel
