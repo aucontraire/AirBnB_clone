@@ -23,36 +23,65 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Implement custom commands"""
-
+        # TODO: add error mgmt for class (missing, valid), id, attribute, value
         if line == '' or not line.endswith(')'):
             return line
 
-        flag = 1
+        cmd_split = line.split('.', 1)
 
-        for x in self.classes:
-            for y in self.methods:
-                if line.startswith("{}.{}(".format(x, y)):
-                    flag = 0
-        if flag:
-            return line
+        if len(cmd_split) < 2:
+            print('double check split')
+            for cls in self.classes:
+                if cls in cmd_split:
+                    print('class found:', cls)
+                    continue
+            print("** class name missing **")
+            return ''
 
-        tmp = ''
-        for x in self.methods:
-            tmp = line.replace('(', '.').replace(')', '.').split('.')
-            if tmp[0] not in self.classes:
-                return ' '.join(tmp)
-            while tmp[-1] == '':
-                tmp.pop()
-            if len(tmp) < 2:
-                return line
-            if len(tmp) == 2:
-                tmp = '{} {}'.format(tmp[1], tmp[0])
-            else:
-                tmp = '{} {} {}'.format(tmp[1], tmp[0], tmp[2])
-            if tmp.startswith(x):
-                return tmp
+        cls = cmd_split[0]
+        cmdrgx = re.compile("(a?[^(]+)")
+        command = cmdrgx.findall(cmd_split[1])[0]
+        options = cmd_split[1].split(command)[1]
 
-        return ''
+        if command == 'all':
+            return "{} {}".format(command, cls)
+
+        objs = models.storage.all()
+        if command == 'count':
+            #print('use all() to count, add validation')
+            count = 0
+            for key in objs.keys():
+                if key.startswith(cls):
+                    count += 1
+            print(count)
+            return ''
+
+        if command == 'show' or command == 'destroy':
+            inst_id = eval(options)
+            if len(inst_id) == 0:
+                inst_id = ''
+            return "{} {} {}".format(command, cls, inst_id)
+
+        if command == 'update':
+            opt_tup = eval(options)
+            inst_id = opt_tup[0]
+            if type(opt_tup[1]) is dict:
+                obj_dict = opt_tup[1]
+                key = '{}.{}'.format(cls, inst_id)
+                try:
+                    obj = objs[key]
+                    for name, value in obj_dict.items():
+                        setattr(obj, name, value)
+                    models.storage.save()
+                    return ''
+                except KeyError:
+                    print("** no instance found **")
+                    return ''
+
+            return "{} {} {} {} {}".format(
+                command, cls, inst_id, opt_tup[1], opt_tup[2])
+
+        return line
 
     def emptyline(self):
         """Overrides default empty line behavior so no command is executed"""
