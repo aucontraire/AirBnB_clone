@@ -22,11 +22,17 @@
 .locations:hover #locations-ul {
     display: block;
     visibility: visible;
+    opacity: 0.99;
+    background-color: #FAFAFA;
+    z-index: 100;
 }
 
 .amenities:hover #amenities-ul {
     display: block;
     visibility: visible;
+    opacity: 0.99;
+    background-color: #FAFAFA;
+    z-index: 100;
 }
 
 #locations-ul {
